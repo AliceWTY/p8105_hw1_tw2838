@@ -5,9 +5,9 @@ date: "2022-09-24"
 output: html_document
 ---
 
-# Problem #1 Penguins Dataset
+# **Problem #1**
 
-## Load and describe the dataset
+## Load and Describe the Penguins Dataset
 
 Now, we are loading the `penguins` dataset
 ```{r}
@@ -20,28 +20,80 @@ This data set include `r nrow(penguins)` rows and `r ncol(penguins)` columns.
 To get the mean flipper length, I excluded the missing values and rounded up to 2 decimal place. 
 The mean flipper length is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 2)` mm.
 
-## Scatterplot of flipper_length vs bill_length
 
-```{r}
+
+## Scatterplot of Flipper_length vs Bill_length
+
+```{r warning = FALSE}
 library(tidyverse)
 
-df = tibble(
+dfQ1 = tibble(
   x = penguins$bill_length_mm,
   y = penguins$flipper_length_mm,
   z = penguins$species
   )
 
-ggplot(df, aes(x = penguins$bill_length_mm , y = penguins$flipper_length_mm, color=z) )+ geom_point()
+ggplot(dfQ1, aes(x = penguins$bill_length_mm , y = penguins$flipper_length_mm, color = z) ) +  geom_point()
 ```
 
 Save the scatter plot into the local R project file.
-```{r}
+```{r warning = FALSE}
 ggsave("scatter_plot_penguins.pdf", height = 4, width = 6)
 ```
 
 
 
+# **Problem #2**
+
+## Create the Data Frame
+
+```{r}
+dfQ2 = tibble(
+  var_random = rnorm(10),
+  var_logic = var_random > 0,
+  var_char = c ("A","A","A","B","B","B","C","C","C","C" ),
+  var_fac = factor(c("high","high","high","medium","medium","medium","low","low","low","low"))
+)
+print(dfQ2)
+```
 
 
 
+## Mean for Each Variables
+```{r}
+mean(dfQ2$var_random)
+```
+We get the mean for the random variable since it is a numeric variable. The mean is `r mean(dfQ2$var_random)`. 
 
+
+```{r}
+mean(dfQ2$var_logic)
+```
+We get the mean for the logic variable since the true is treated at "1" and the false is treated as "0." The mean is `r mean(dfQ2$var_logic)`.
+
+
+```{r warning = FALSE}
+mean(dfQ2$var_char)
+mean(dfQ2$var_fac)
+```
+We don't have means for the character and factor variables since they are not numerical or factorial. 
+
+
+
+## Convert to Numeric Variables
+```{r eval = FALSE}
+as.numeric(dfQ2$var_logic)
+```
+R assigned "1" for "TRUE" and "0" for FAlSE."
+
+
+```{r warning = FALSE, eval = FALSE}
+as.numeric(dfQ2$var_char)
+```
+R failed to assign numeric values for the character variable. The Warning showed that NAs were introduced by coercion. 
+
+
+```{r eval = FALSE}
+as.numeric(dfQ2$var_fac)
+```
+R successfully assigned numeric value for each levels. 
