@@ -2,7 +2,7 @@
 title: "p8105_hw1_tw2838"
 author: "Tianyou Wang"
 date: "2022-09-24"
-output: html_document
+output: github_document
 ---
 
 # **Problem #1**
